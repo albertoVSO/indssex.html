@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Royal Vegas Casino</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+    font-family:'Poppins',sans-serif;
+    background:radial-gradient(circle at top,#1a002b,#000);
+    color:#fff;
+}
+
+/* HEADER */
+header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 40px;
+    background:linear-gradient(90deg,#cfa93f,#7a1c1c);
+}
+header h1{
+    letter-spacing:3px;
+}
+nav a{
+    margin-left:20px;
+    text-decoration:none;
+    color:#fff;
+    font-weight:500;
+}
+nav a:hover{opacity:.8}
+
+/* CONTAINER */
+.container{
+    max-width:1200px;
+    margin:auto;
+    padding:50px 20px;
+}
+
+/* HERO */
+.hero{
+    text-align:center;
+    margin-bottom:60px;
+}
+.hero h2{
+    font-size:42px;
+    margin-bottom:15px;
+}
+.hero p{
+    opacity:.8;
+}
+
+/* GAMES */
+.games{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:30px;
+    margin-bottom:60px;
+}
+.game-card{
+    background:linear-gradient(145deg,#1e1e2f,#0b0b15);
+    border-radius:20px;
+    padding:30px;
+    text-align:center;
+    box-shadow:0 0 25px rgba(255,215,0,.15);
+}
+.game-card h3{margin:15px 0}
+.game-card span{
+    font-size:50px;
+}
+
+/* SLOT */
+.slot-card{
+    background:linear-gradient(145deg,#1e1e2f,#0b0b15);
+    border-radius:25px;
+    padding:40px;
+    text-align:center;
+    box-shadow:0 0 40px rgba(255,215,0,.2);
+}
+.saldo{
+    font-size:22px;
+    margin-bottom:25px;
+}
+.saldo span{color:gold;font-weight:700}
+
+.slot{
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    margin:30px 0;
+}
+.reel{
+    width:110px;
+    height:110px;
+    background:#fff;
+    color:#000;
+    font-size:55px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:15px;
+    box-shadow:inset 0 0 10px #000,0 0 15px gold;
+}
+.spin{
+    animation:spin .2s infinite;
+}
+@keyframes spin{
+    0%{transform:rotateX(0deg)}
+    100%{transform:rotateX(360deg)}
+}
+
+button{
+    padding:18px 50px;
+    font-size:20px;
+    font-weight:700;
+    border:none;
+    border-radius:50px;
+    cursor:pointer;
+    background:linear-gradient(90deg,gold,orange);
+    box-shadow:0 0 20px rgba(255,215,0,.5);
+    transition:.3s;
+}
+button:hover{transform:scale(1.05)}
+
+/* FOOTER */
+footer{
+    margin-top:70px;
+    padding:25px;
+    text-align:center;
+    font-size:13px;
+    opacity:.6;
+}
+
+/* RESPONSIVO */
+@media(max-width:600px){
+    header{flex-direction:column;gap:10px}
+    .hero h2{font-size:32px}
+    .reel{width:90px;height:90px;font-size:45px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>ROYAL VEGAS</h1>
+    <nav>
+        <a href="#">Início</a>
+        <a href="#">Jogos</a>
+        <a href="#">Promoções</a>
+        <a href="#">Suporte</a>
+    </nav>
+</header>
+
+<div class="container">
+
+    <section class="hero">
+        <h2>O Cassino Online Mais Luxuoso</h2>
+        <p>Entre no jogo e viva a experiência premium do Royal Vegas</p>
+    </section>
+
+    <section class="games">
+        <div class="game-card">
+            <span>🎰</span>
+            <h3>Slots</h3>
+            <p>Máquinas modernas e jackpots incríveis</p>
+        </div>
+        <div class="game-card">
+            <span>🎲</span>
+            <h3>Roleta</h3>
+            <p>Clássico cassino europeu</p>
+        </div>
+        <div class="game-card">
+            <span>🃏</span>
+            <h3>Blackjack</h3>
+            <p>Desafie o dealer</p>
+        </div>
+    </section>
+
+    <section class="slot-card">
+        <div class="saldo">Saldo: R$ <span id="saldo">1000</span></div>
+
+        <div class="slot">
+            <div class="reel" id="r1">💎</div>
+            <div class="reel" id="r2">⭐</div>
+            <div class="reel" id="r3">🍒</div>
+        </div>
+
+        <button onclick="girar()">GIRAR</button>
+    </section>
+
+</div>
+
+<footer>
+    Cassino fictício • Projeto demonstrativo • Sem apostas reais
+</footer>
+
+<script>
+let saldo=1000;
+const simbolos=["🍒","⭐","🔔","💎","7️⃣"];
+
+function girar(){
+    if(saldo<50){
+        alert("Saldo insuficiente!");
+        return;
+    }
+    saldo-=50;
+    document.getElementById("saldo").innerText=saldo;
+
+    const reels=document.querySelectorAll(".reel");
+    reels.forEach(r=>r.classList.add("spin"));
+
+    setTimeout(()=>{
+        let r1=simbolos[Math.floor(Math.random()*simbolos.length)];
+        let r2=simbolos[Math.floor(Math.random()*simbolos.length)];
+        let r3=simbolos[Math.floor(Math.random()*simbolos.length)];
+
+        r1El=document.getElementById("r1");
+        r2El=document.getElementById("r2");
+        r3El=document.getElementById("r3");
+
+        r1El.innerText=r1;
+        r2El.innerText=r2;
+        r3El.innerText=r3;
+
+        reels.forEach(r=>r.classList.remove("spin"));
+
+        if(r1===r2 && r2===r3){
+            saldo+=300;
+            document.getElementById("saldo").innerText=saldo;
+            alert("🎉 JACKPOT! +R$300");
+        }
+    },1000);
+}
+</script>
+
+</body>
+</html>
